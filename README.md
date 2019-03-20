@@ -8,7 +8,12 @@
 
 - 【数组】
     - [静态数组](./Array/src/StaticArray.java)
-    - [动态数组](./Array/src/Array.java)
+    - [动态数组 ](./Array/src/Array.java) - 动态扩容
+- 【栈】
+    - [栈](./Array/src/Array.java) - 基于[【数组】- 动态数组](./Array/src/Array.java)
+- 【队列】
+    - [队列 - FIFO](./Array/src/StaticArray.java) - 基于[【数组】- 动态数组](./Array/src/Array.java)
+    - [循环队列 - 动态扩容](./Array/src/Array.java)
 - 【线段树】
     - [线段树](./SegmentTree/src/SegmentTree.java)
     - [线段树 - Merger](./SegmentTree/src/Merger.java)
@@ -27,7 +32,8 @@
     * [Quick Union - 路径压缩](./UnionFind/src/UnionFind5.java)
     * [Quick Union - 路径一次性压缩（递归）](./UnionFind/src/UnionFind6.java)
 - 【平衡二叉树】
-    * [AVLTree_pending](./AVLTree/src/AVLTree.java)
+    * [AVLTree](./AVLTree/src/AVLTree.java)
+    * [红黑树_pending](./RedBlackTree/src/RBTree.java)
 - 【线段树】
     * [SegmentTree](./SegmentTree/src/SegmentTree.java)
     * [区域和检索 - 数组不可变_pending](./SegmentTree/src/SegmentTree.java)
