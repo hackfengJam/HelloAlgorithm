@@ -135,7 +135,7 @@ public class Array<E> {
 
 
     // 从数组中删除第一个元素，返回删除的元素
-    public E removeFirst(int index) {
+    public E removeFirst() {
 
         return remove(0);
     }
