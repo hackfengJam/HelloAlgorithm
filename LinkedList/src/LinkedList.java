@@ -24,7 +24,7 @@ public class LinkedList<E> {
     }
 
     private Node head;
-    int size;
+    private int size;
 
     public LinkedList() {
         head = null;
@@ -71,5 +71,24 @@ public class LinkedList<E> {
     // 在链表末尾添加新的元素e
     public void addLast(E e) {
         add(size, e);
+    }
+
+
+    @Override
+    public String toString() {
+        StringBuilder res = new StringBuilder();
+
+//        Node cur = dummyHead.next;
+//        while (cur != null) {
+//            res.append(cur + "->");
+//            cur = cur.next;
+//        }
+//        res.append("NULL");
+        for (Node cur = head; cur != null; cur = cur.next) {
+            res.append(cur + "->");
+        }
+        res.append("NULL");
+
+        return res.toString();
     }
 }
