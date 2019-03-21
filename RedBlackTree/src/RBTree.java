@@ -36,18 +36,59 @@ public class RBTree<K extends Comparable<K>, V> {
         return size == 0;
     }
 
-    // 向二分搜索树中添加新的元素(key, value)
-    public void add(K key, V value) {
-        root = add(root, key, value);
+    public boolean isRed(Node node) {
+        if (node == null) {
+            return false;
+        }
+        return node.color == RED;
     }
 
-    // 向以node为根的二分搜索树中插入元素(key, value)，递归算法
-    // 返回插入新节点后二分搜索树的根
+    private Node leftRotate(Node node) {
+        Node x = node.right;
+
+        // 左旋转
+        node.right = x.left;
+        x.left = node;
+
+        x.color = node.color;
+        node.color = RED;
+
+        return x;
+    }
+
+    private Node rightRotate(Node node) {
+        Node x = node.left;
+
+        // 左旋转
+        node.left = x.right;
+        x.right = node;
+
+        x.color = node.color;
+        node.color = RED;
+
+        return x;
+    }
+
+    // 颜色翻转
+    private void flipColors(Node node) {
+        node.color = RED;
+        node.left.color = BLACK;
+        node.right.color = BLACK;
+    }
+
+    // 向红黑树树中添加新的元素(key, value)
+    public void add(K key, V value) {
+        root = add(root, key, value);
+        root.color = BLACK; // 最终根节点为黑色节点
+    }
+
+    // 向以node为根的红黑树中插入元素(key, value)，递归算法
+    // 返回插入新节点后红黑树的根
     private Node add(Node node, K key, V value) {
 
         if (node == null) {
             size++;
-            return new Node(key, value);
+            return new Node(key, value); // 默认插入红色节点
         }
 
         if (key.compareTo(node.key) < 0)
@@ -56,6 +97,20 @@ public class RBTree<K extends Comparable<K>, V> {
             node.right = add(node.right, key, value);
         else // key.compareTo(node.key) == 0
             node.value = value;
+
+        // 维护红黑树的性质，下面三种情况并不互斥
+        if (isRed(node.right) && !isRed(node.left)) {
+            // 左旋转
+            node = leftRotate(node);
+        }
+        if (isRed(node.left) && isRed(node.left.left)) {
+            // 右旋转
+            node = rightRotate(node);
+        }
+        if (isRed(node.left) && isRed(node.right)) {
+            // 颜色翻转
+            flipColors(node);
+        }
 
         return node;
     }
@@ -173,7 +228,7 @@ public class RBTree<K extends Comparable<K>, V> {
         System.out.println("Pride and Prejudice");
 
         ArrayList<String> words = new ArrayList<>();
-        if (FileOperation.readFile("pride-and-prejudice.txt", words)) {
+        if (FileOperation.readFile("AVLTree/pride-and-prejudice.txt", words)) {
             System.out.println("Total words: " + words.size());
 
             RBTree<String, Integer> map = new RBTree<>();
@@ -187,6 +242,15 @@ public class RBTree<K extends Comparable<K>, V> {
             System.out.println("Total different words: " + map.getSize());
             System.out.println("Frequency of PRIDE: " + map.get("pride"));
             System.out.println("Frequency of PREJUDICE: " + map.get("prejudice"));
+
+//            System.out.println("is BST : " + map.isBST());
+//            System.out.println("is isBalanced : " + map.isBalanced());
+//
+//            for (String word : words) {
+//                map.remove(word);
+//                if (!map.isBST() || !map.isBalanced())
+//                    throw new RuntimeException("Error");
+//            }
         }
 
         System.out.println();
