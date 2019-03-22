@@ -40,13 +40,12 @@
     * [区域和检索 - 数组可修改_pending](./SegmentTree/src/SegmentTree.java)
 
 
-持续更新...后续将添加具体解析，敬请关注我的博客：[blog](https://github.com/hackfengJam/blog)
+#### 我的相关仓库
 
+[LeetCode 平常练习 - Java](https://github.com/hackfengJam/LeetCode)
 
-#### 其他博文
+[LintCode 平常练习 - Python](https://github.com/hackfengJam/LintCode)
 
-Pending
-  
 
 #### 优质资料汇总
 
@@ -57,3 +56,7 @@ Pending
 #### 交流
 
 Pending
+
+ps:
+- 持续更新...后续将添加具体解析，敬请关注我的博客：[blog](https://github.com/hackfengJam/blog)
+
