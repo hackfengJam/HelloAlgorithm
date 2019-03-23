@@ -14,9 +14,16 @@
 - 【队列】
     - [队列 - FIFO](./Array/src/StaticArray.java) - 基于[【数组】- 动态数组](./Array/src/Array.java)
     - [循环队列 - 动态扩容](./Array/src/Array.java)
+- 【链表】
+    - [LinkedList](./LinkedList/src/LinkedList.java)
+    - [LinkedListDummyHead](./LinkedList/src/LinkedListDummyHead.java)
+- 【二分搜索树】
+    - [BST](./BST/src/BST.java)
 - 【线段树】
     - [线段树](./SegmentTree/src/SegmentTree.java)
     - [线段树 - Merger](./SegmentTree/src/Merger.java)
+    - [区域和检索 - 数组不可变_pending](./SegmentTree/src/SegmentTree.java)
+    - [区域和检索 - 数组可修改_pending](./SegmentTree/src/SegmentTree.java)
 - 【字典树】
     * [Trie](./Trie/src/Trie.java)
     * [WordDictionary - LeetCode_zh_211](./Trie/src/WordDictionary.java)
@@ -34,10 +41,8 @@
 - 【平衡二叉树】
     * [AVLTree](./AVLTree/src/AVLTree.java)
     * [红黑树_pending](./RedBlackTree/src/RBTree.java)
-- 【线段树】
-    * [SegmentTree](./SegmentTree/src/SegmentTree.java)
-    * [区域和检索 - 数组不可变_pending](./SegmentTree/src/SegmentTree.java)
-    * [区域和检索 - 数组可修改_pending](./SegmentTree/src/SegmentTree.java)
+- 【哈希表】
+    - [HashTable](./HashTable/src/HashTable.java)
 
 
 #### 我的相关仓库
