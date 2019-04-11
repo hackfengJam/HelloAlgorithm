@@ -26,6 +26,7 @@
     - [区域和检索 - 数组可修改_pending](./SegmentTree/src/SegmentTree.java)
 - 【字典树】
     * [Trie](./Trie/src/Trie.java)
+    * [TSTrie - 三向单词查找树](./Trie/src/TSTrie.java)
     * [WordDictionary - LeetCode_zh_211](./Trie/src/WordDictionary.java)
     * [MapSum - LeetCode_en_677](./Trie/src/MapSum.java)
     * [实现 Trie (前缀树) - LeetCode_zh_208](./Trie/src/Trie.java)
