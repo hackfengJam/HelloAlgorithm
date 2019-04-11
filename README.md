@@ -9,6 +9,8 @@
 - 【数组】
     - [静态数组](./Array/src/StaticArray.java)
     - [动态数组 ](./Array/src/Array.java) - 动态扩容
+- 【堆】
+    - [最大堆](./Heap/src/MaxHeap.java)
 - 【栈】
     - [栈](./Array/src/Array.java) - 基于[【数组】- 动态数组](./Array/src/Array.java)
 - 【队列】
