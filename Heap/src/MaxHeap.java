@@ -57,6 +57,10 @@ public class MaxHeap<Key extends Comparable<Key>> {
         return key;
     }
 
+    private void sort(Comparable a[]) {
+
+    }
+
     public static void main(String[] args) {
         int[] nums = {2, 3, 4, 5, 6};
         MaxHeap<Integer> maxHeap = new MaxHeap<>(nums.length);
