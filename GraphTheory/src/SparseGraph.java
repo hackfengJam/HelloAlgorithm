@@ -78,6 +78,10 @@ public class SparseGraph {
         return stringBuilder.toString();
     }
 
+    public Iterable<Integer> adj(int v) {
+        return g.get(v);
+    }
+
     public class adjIterator implements Iterator {
         private SparseGraph G;
         private int v;
@@ -91,7 +95,10 @@ public class SparseGraph {
 
         @Override
         public boolean hasNext() {
-            return index + 1 < G.g.get(v).size();
+//            return index + 1 < G.g.get(v).size();
+
+            // 为了与 DenseGraph 统一
+            return index < G.g.get(v).size();
         }
 
         @Override

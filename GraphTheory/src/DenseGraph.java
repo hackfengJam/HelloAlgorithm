@@ -57,6 +57,28 @@ public class DenseGraph {
         return null;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("DenseGraph\n");
+        stringBuilder.append("-----------\n");
+        for (int i = 0; i < g.size(); i++) {
+            List<Boolean> line = g.get(i);
+            stringBuilder.append(i);
+            stringBuilder.append(" : ");
+            for (int j = 0; j < line.size(); j++) {
+//                boolean v = line.get(j);
+                if (line.get(j)) {
+                    stringBuilder.append(j);
+                    if (j < line.size() - 1)
+                        stringBuilder.append(", ");
+                }
+            }
+            stringBuilder.append("\n");
+        }
+        return stringBuilder.toString();
+    }
+
     // 暂废弃
     class adjIterator implements Iterator {
         private DenseGraph G;
@@ -71,7 +93,7 @@ public class DenseGraph {
 
         @Override
         public boolean hasNext() {
-            return index >= G.V();
+            return index + 1 < G.V();
         }
 
         @Override

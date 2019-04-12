@@ -7,6 +7,7 @@ public class Main {
         int M = 10;
         Random random = new Random();
 
+        // SparseGraph
         SparseGraph sparseGraph = new SparseGraph(N, false);
         for (int i = 0; i < M; i++) {
             int a = random.nextInt(N);
@@ -15,9 +16,32 @@ public class Main {
         }
         System.out.println(sparseGraph);
 
+
+        // O(E)
         for (int v = 0; v < N; v++) {
             System.out.print(v + " : ");
             SparseGraph.adjIterator iterator = sparseGraph.new adjIterator(sparseGraph, v);
+            while (iterator.hasNext()) {
+                System.out.print(iterator.next() + " ");
+            }
+            System.out.println();
+        }
+
+        System.out.println("----------分割线----------");
+
+        // DenseGraph
+        DenseGraph denseGraph = new DenseGraph(N, false);
+        for (int i = 0; i < M; i++) {
+            int a = random.nextInt(N);
+            int b = random.nextInt(N);
+            denseGraph.addEdge(a, b);
+        }
+        System.out.println(denseGraph);
+
+        // O(V^2)
+        for (int v = 0; v < N; v++) {
+            System.out.print(v + " : ");
+            DenseGraph.adjIterator iterator = denseGraph.new adjIterator(denseGraph, v);
             while (iterator.hasNext()) {
                 System.out.print(iterator.next() + " ");
             }
