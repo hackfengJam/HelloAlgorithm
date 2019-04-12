@@ -1,4 +1,3 @@
-import java.util.Iterator;
 import java.util.Random;
 
 public class Main {
@@ -14,10 +13,15 @@ public class Main {
             int b = random.nextInt(N);
             sparseGraph.addEdge(a, b);
         }
+        System.out.println(sparseGraph);
 
         for (int v = 0; v < N; v++) {
-            System.out.println(v + " : ");
-            SparseGraph.AdjIterator iterator = new SparseGraph.AdjIterator(sparseGraph, v);
+            System.out.print(v + " : ");
+            SparseGraph.adjIterator iterator = sparseGraph.new adjIterator(sparseGraph, v);
+            while (iterator.hasNext()) {
+                System.out.print(iterator.next() + " ");
+            }
+            System.out.println();
         }
     }
 }

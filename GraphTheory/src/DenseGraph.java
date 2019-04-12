@@ -53,7 +53,11 @@ public class DenseGraph {
         return g.get(v).get(w);
     }
 
+    public Iterable<Integer> pathTo(int v) {
+        return null;
+    }
 
+    // 暂废弃
     class adjIterator implements Iterator {
         private DenseGraph G;
         private int v;

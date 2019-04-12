@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Stack;
 
 // 稀疏图 - 邻接表
 public class SparseGraph {
@@ -57,20 +58,40 @@ public class SparseGraph {
         return false;
     }
 
-    public class AdjIterator implements Iterator {
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("SparseGraph\n");
+        stringBuilder.append("-----------\n");
+        for (int i = 0; i < g.size(); i++) {
+            List<Integer> line = g.get(i);
+            stringBuilder.append(i);
+            stringBuilder.append(" : ");
+            for (int j = 0; j < line.size(); j++) {
+                int v = line.get(j);
+                stringBuilder.append(v);
+                if (j < line.size() - 1)
+                    stringBuilder.append(", ");
+            }
+            stringBuilder.append("\n");
+        }
+        return stringBuilder.toString();
+    }
+
+    public class adjIterator implements Iterator {
         private SparseGraph G;
         private int v;
         int index;
 
-        public AdjIterator(SparseGraph graph, int v) {
+        public adjIterator(SparseGraph graph, int v) {
             this.G = graph;
             this.v = v;
-            this.index = 0;
+            this.index = -1;
         }
 
         @Override
         public boolean hasNext() {
-            return index >= G.g.get(v).size();
+            return index + 1 < G.g.get(v).size();
         }
 
         @Override

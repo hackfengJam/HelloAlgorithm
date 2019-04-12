@@ -47,6 +47,9 @@
     * [红黑树_pending](./RedBlackTree/src/RBTree.java)
 - 【哈希表】
     - [HashTable](./HashTable/src/HashTable.java)
+- 【图论】
+    - [稠密图 - 邻接矩阵](./GraphTheory/src/DenseGraph.java)
+    - [稀疏图 - 邻接表](./GraphTheory/src/SparseGraph.java)
 
 
 #### 我的相关仓库
