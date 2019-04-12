@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Stack;
 
 // 稀疏图 - 邻接表
-public class SparseGraph {
+public class SparseGraph implements Graph {
     private int n, m; // n 为顶点 V，m 为边 E
 
     // 指定是否为有向图
@@ -58,6 +58,10 @@ public class SparseGraph {
         return false;
     }
 
+    public Iterable<Integer> adj(int v) {
+        return g.get(v);
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -78,9 +82,6 @@ public class SparseGraph {
         return stringBuilder.toString();
     }
 
-    public Iterable<Integer> adj(int v) {
-        return g.get(v);
-    }
 
     public class adjIterator implements Iterator {
         private SparseGraph G;

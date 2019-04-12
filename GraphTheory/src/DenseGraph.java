@@ -1,9 +1,10 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Stack;
 
 // 稠密图 - 邻接矩阵
-public class DenseGraph {
+public class DenseGraph implements Graph {
     private int n, m; // n 为顶点 V，m 为边 E
 
     // 指定是否为有向图
@@ -53,8 +54,12 @@ public class DenseGraph {
         return g.get(v).get(w);
     }
 
-    public Iterable<Integer> pathTo(int v) {
-        return null;
+    public Iterable<Integer> adj(int v) {
+        List<Integer> iter = new ArrayList<>();
+        for (int index = 0; index < g.size(); index++)
+            if (g.get(v).get(index))
+                iter.add(index);
+        return iter;
     }
 
     @Override
@@ -79,7 +84,6 @@ public class DenseGraph {
         return stringBuilder.toString();
     }
 
-    // 暂废弃
     class adjIterator implements Iterator {
         private DenseGraph G;
         private int v;
