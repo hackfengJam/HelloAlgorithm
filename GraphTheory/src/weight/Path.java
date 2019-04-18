@@ -1,3 +1,5 @@
+package weight;
+
 import java.util.List;
 
 public class Path {

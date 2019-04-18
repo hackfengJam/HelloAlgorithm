@@ -1,24 +1,27 @@
+package no_weight;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Stack;
 
-// 稀疏图 - 邻接表
-public class SparseGraph implements Graph {
+// 稠密图 - 邻接矩阵
+public class DenseGraph implements Graph {
     private int n, m; // n 为顶点 V，m 为边 E
 
     // 指定是否为有向图
     private boolean directed;
 
-    private List<List<Integer>> g;
+    List<List<Boolean>> g;
 
-    public SparseGraph(int n, boolean directed) {
+    public DenseGraph(int n, boolean directed) {
         this.n = n;
         this.m = 0;
         this.directed = directed;
         g = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            List<Integer> line = new ArrayList<>();
+            List<Boolean> line = new ArrayList<>();
+            for (int j = 0; j < n; j++)
+                line.add(false);
             g.add(line);
         }
     }
@@ -38,11 +41,9 @@ public class SparseGraph implements Graph {
         if (hasEdge(v, w))
             return;
 
-        g.get(v).add(w);
-
-        // v != w 排除自环
-        if (v != w && !directed)
-            g.get(w).add(v);
+        g.get(v).set(w, true);
+        if (!directed)
+            g.get(w).set(v, true);
 
         m++;
     }
@@ -51,44 +52,45 @@ public class SparseGraph implements Graph {
         assert (v >= 0 && v < n);
         assert (w >= 0 && w < n);
 
-        for (int i = 0; i < g.get(v).size(); i++) {
-            if (g.get(v).get(i) == w)
-                return true;
-        }
-        return false;
+        return g.get(v).get(w);
     }
 
     public Iterable<Integer> adj(int v) {
-        return g.get(v);
+        List<Integer> iter = new ArrayList<>();
+        for (int index = 0; index < g.size(); index++)
+            if (g.get(v).get(index))
+                iter.add(index);
+        return iter;
     }
 
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("SparseGraph\n");
+        stringBuilder.append("no_weight.DenseGraph\n");
         stringBuilder.append("-----------\n");
         for (int i = 0; i < g.size(); i++) {
-            List<Integer> line = g.get(i);
+            List<Boolean> line = g.get(i);
             stringBuilder.append(i);
             stringBuilder.append(" : ");
             for (int j = 0; j < line.size(); j++) {
-                int v = line.get(j);
-                stringBuilder.append(v);
-                if (j < line.size() - 1)
-                    stringBuilder.append(", ");
+//                boolean v = line.get(j);
+                if (line.get(j)) {
+                    stringBuilder.append(j);
+                    if (j < line.size() - 1)
+                        stringBuilder.append(", ");
+                }
             }
             stringBuilder.append("\n");
         }
         return stringBuilder.toString();
     }
 
-
-    public class adjIterator implements Iterator {
-        private SparseGraph G;
+    class adjIterator implements Iterator {
+        private DenseGraph G;
         private int v;
         int index;
 
-        public adjIterator(SparseGraph graph, int v) {
+        public adjIterator(DenseGraph graph, int v) {
             this.G = graph;
             this.v = v;
             this.index = -1;
@@ -96,20 +98,16 @@ public class SparseGraph implements Graph {
 
         @Override
         public boolean hasNext() {
-//            return index + 1 < G.g.get(v).size();
-
-            // 为了与 DenseGraph 统一
-            return index < G.g.get(v).size();
+            return index + 1 < G.V();
         }
 
         @Override
         public Object next() {
-            index++;
-            if (index < G.g.get(v).size())
-                return G.g.get(v).get(index);
+            for (index += 1; index < G.V(); index++)
+                if (G.g.get(v).get(index))
+                    return index;
             return -1;
         }
     }
-
 
 }

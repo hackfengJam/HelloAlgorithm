@@ -1,26 +1,25 @@
+package weight;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Stack;
 
-// 稠密图 - 邻接矩阵
-public class DenseGraph implements Graph {
+// 稀疏图 - 邻接表
+public class SparseGraph<Weight> implements Graph<Weight> {
     private int n, m; // n 为顶点 V，m 为边 E
 
     // 指定是否为有向图
     private boolean directed;
 
-    List<List<Boolean>> g;
+    private List<List<Edge<Weight>>> g;
 
-    public DenseGraph(int n, boolean directed) {
+    public SparseGraph(int n, boolean directed) {
         this.n = n;
         this.m = 0;
         this.directed = directed;
         g = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            List<Boolean> line = new ArrayList<>();
-            for (int j = 0; j < n; j++)
-                line.add(false);
+            List<Edge<Weight>> line = new ArrayList<>();
             g.add(line);
         }
     }
@@ -33,16 +32,18 @@ public class DenseGraph implements Graph {
         return m;
     }
 
-    public void addEdge(int v, int w) {
+    public void addEdge(int v, int w, Weight weight) {
         assert (v >= 0 && v < n);
         assert (w >= 0 && w < n);
 
         if (hasEdge(v, w))
             return;
 
-        g.get(v).set(w, true);
-        if (!directed)
-            g.get(w).set(v, true);
+        g.get(v).add(new Edge<>(v, w, weight));
+
+        // v != w 排除自环
+        if (v != w && !directed)
+            g.get(w).add(new Edge<>(w, v, weight));
 
         m++;
     }
@@ -51,45 +52,48 @@ public class DenseGraph implements Graph {
         assert (v >= 0 && v < n);
         assert (w >= 0 && w < n);
 
-        return g.get(v).get(w);
+        for (int i = 0; i < g.get(v).size(); i++) {
+            if (g.get(v).get(i).other(v) == w)
+                return true;
+        }
+        return false;
     }
 
     public Iterable<Integer> adj(int v) {
         List<Integer> iter = new ArrayList<>();
-        for (int index = 0; index < g.size(); index++)
-            if (g.get(v).get(index))
-                iter.add(index);
+        for (Edge<Weight> edge : g.get(v)) {
+            iter.add(edge.other(v));
+        }
         return iter;
     }
 
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("DenseGraph\n");
+        stringBuilder.append("weight.SparseGraph\n");
         stringBuilder.append("-----------\n");
         for (int i = 0; i < g.size(); i++) {
-            List<Boolean> line = g.get(i);
+            List<Edge<Weight>> line = g.get(i);
             stringBuilder.append(i);
             stringBuilder.append(" : ");
             for (int j = 0; j < line.size(); j++) {
-//                boolean v = line.get(j);
-                if (line.get(j)) {
-                    stringBuilder.append(j);
-                    if (j < line.size() - 1)
-                        stringBuilder.append(", ");
-                }
+                int v = line.get(j).other(i);
+                stringBuilder.append(v);
+                if (j < line.size() - 1)
+                    stringBuilder.append(", ");
             }
             stringBuilder.append("\n");
         }
         return stringBuilder.toString();
     }
 
-    class adjIterator implements Iterator {
-        private DenseGraph G;
+
+    public class adjIterator implements Iterator {
+        private SparseGraph<Weight> G;
         private int v;
         int index;
 
-        public adjIterator(DenseGraph graph, int v) {
+        public adjIterator(SparseGraph<Weight> graph, int v) {
             this.G = graph;
             this.v = v;
             this.index = -1;
@@ -97,16 +101,20 @@ public class DenseGraph implements Graph {
 
         @Override
         public boolean hasNext() {
-            return index + 1 < G.V();
+//            return index + 1 < G.g.get(v).size();
+
+            // 为了与 no_weight.DenseGraph 统一
+            return index < G.g.get(v).size();
         }
 
         @Override
         public Object next() {
-            for (index += 1; index < G.V(); index++)
-                if (G.g.get(v).get(index))
-                    return index;
+            index++;
+            if (index < G.g.get(v).size())
+                return G.g.get(v).get(index);
             return -1;
         }
     }
+
 
 }

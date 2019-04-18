@@ -1,3 +1,5 @@
+package no_weight;
+
 public interface Graph {
     public int V();
 

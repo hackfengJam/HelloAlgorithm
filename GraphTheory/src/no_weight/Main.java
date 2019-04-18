@@ -1,3 +1,5 @@
+package no_weight;
+
 import java.util.Random;
 
 public class Main {
@@ -6,7 +8,7 @@ public class Main {
         int M = 10;
         Random random = new Random();
 
-        // SparseGraph
+        // no_weight.SparseGraph
         SparseGraph sparseGraph = new SparseGraph(N, false);
         for (int i = 0; i < M; i++) {
             int a = random.nextInt(N);
@@ -28,7 +30,7 @@ public class Main {
 
         System.out.println("----------分割线----------");
 
-        // DenseGraph
+        // no_weight.DenseGraph
         DenseGraph denseGraph = new DenseGraph(N, false);
         for (int i = 0; i < M; i++) {
             int a = random.nextInt(N);
@@ -54,7 +56,7 @@ public class Main {
         int M = 10;
         Random random = new Random();
 
-        // SparseGraph
+        // no_weight.SparseGraph
         SparseGraph sparseGraph = new SparseGraph(N, false);
         for (int i = 0; i < M; i++) {
             int a = random.nextInt(N);
@@ -76,7 +78,7 @@ public class Main {
 
         System.out.println("----------分割线----------");
 
-        // DenseGraph
+        // no_weight.DenseGraph
         DenseGraph denseGraph = new DenseGraph(N, false);
         for (int i = 0; i < M; i++) {
             int a = random.nextInt(N);
@@ -88,7 +90,7 @@ public class Main {
         // O(V^2)
         for (int v = 0; v < N; v++) {
             System.out.print(v + " : ");
-            Iterable<Integer> iterator = sparseGraph.adj(v);
+            Iterable<Integer> iterator = denseGraph.adj(v);
             for (Integer w : iterator) {
                 System.out.print(w + " ");
             }
