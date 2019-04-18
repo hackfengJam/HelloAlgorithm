@@ -5,13 +5,13 @@ import java.util.Iterator;
 import java.util.List;
 
 // 稀疏图 - 邻接表
-public class SparseGraph<Weight> implements Graph<Weight> {
+public class SparseGraph implements Graph {
     private int n, m; // n 为顶点 V，m 为边 E
 
     // 指定是否为有向图
     private boolean directed;
 
-    private List<List<Edge<Weight>>> g;
+    private List<List<Edge>> g;
 
     public SparseGraph(int n, boolean directed) {
         this.n = n;
@@ -19,7 +19,7 @@ public class SparseGraph<Weight> implements Graph<Weight> {
         this.directed = directed;
         g = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            List<Edge<Weight>> line = new ArrayList<>();
+            List<Edge> line = new ArrayList<>();
             g.add(line);
         }
     }
@@ -32,18 +32,18 @@ public class SparseGraph<Weight> implements Graph<Weight> {
         return m;
     }
 
-    public void addEdge(int v, int w, Weight weight) {
+    public void addEdge(int v, int w, double weight) {
         assert (v >= 0 && v < n);
         assert (w >= 0 && w < n);
 
         if (hasEdge(v, w))
             return;
 
-        g.get(v).add(new Edge<>(v, w, weight));
+        g.get(v).add(new Edge(v, w, weight));
 
         // v != w 排除自环
         if (v != w && !directed)
-            g.get(w).add(new Edge<>(w, v, weight));
+            g.get(w).add(new Edge(w, v, weight));
 
         m++;
     }
@@ -59,12 +59,8 @@ public class SparseGraph<Weight> implements Graph<Weight> {
         return false;
     }
 
-    public Iterable<Integer> adj(int v) {
-        List<Integer> iter = new ArrayList<>();
-        for (Edge<Weight> edge : g.get(v)) {
-            iter.add(edge.other(v));
-        }
-        return iter;
+    public Iterable<Edge> adj(int v) {
+        return g.get(v);
     }
 
     @Override
@@ -73,7 +69,7 @@ public class SparseGraph<Weight> implements Graph<Weight> {
         stringBuilder.append("weight.SparseGraph\n");
         stringBuilder.append("-----------\n");
         for (int i = 0; i < g.size(); i++) {
-            List<Edge<Weight>> line = g.get(i);
+            List<Edge> line = g.get(i);
             stringBuilder.append(i);
             stringBuilder.append(" : ");
             for (int j = 0; j < line.size(); j++) {
@@ -89,11 +85,11 @@ public class SparseGraph<Weight> implements Graph<Weight> {
 
 
     public class adjIterator implements Iterator {
-        private SparseGraph<Weight> G;
+        private SparseGraph G;
         private int v;
         int index;
 
-        public adjIterator(SparseGraph<Weight> graph, int v) {
+        public adjIterator(SparseGraph graph, int v) {
             this.G = graph;
             this.v = v;
             this.index = -1;

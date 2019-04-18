@@ -1,15 +1,15 @@
 package weight;
 
-public class Edge<Weight> {
+public class Edge implements Comparable<Edge> {
     private int a;
     private int b;
-    private Weight weight;
+    private double weight;
 
     public Edge() {
 
     }
 
-    public Edge(int a, int b, Weight weight) {
+    public Edge(int a, int b, double weight) {
         this.a = a;
         this.b = b;
         this.weight = weight;
@@ -23,7 +23,7 @@ public class Edge<Weight> {
         return b;
     }
 
-    public Weight wt() {
+    public double wt() {
         return weight;
     }
 
@@ -32,4 +32,13 @@ public class Edge<Weight> {
         return x == a ? b : a;
     }
 
+    @Override
+    public int compareTo(Edge o) {
+        return Double.compare(this.wt(), o.wt());
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%d-%d %.2f", a, b, wt());
+    }
 }

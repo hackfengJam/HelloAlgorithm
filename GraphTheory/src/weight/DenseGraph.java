@@ -5,13 +5,13 @@ import java.util.Iterator;
 import java.util.List;
 
 // 稠密图 - 邻接矩阵
-public class DenseGraph<Weight> implements Graph<Weight> {
+public class DenseGraph implements Graph {
     private int n, m; // n 为顶点 V，m 为边 E
 
     // 指定是否为有向图
     private boolean directed;
 
-    List<List<Edge<Weight>>> g;
+    List<List<Edge>> g;
 
     public DenseGraph(int n, boolean directed) {
         this.n = n;
@@ -19,7 +19,7 @@ public class DenseGraph<Weight> implements Graph<Weight> {
         this.directed = directed;
         g = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            List<Edge<Weight>> line = new ArrayList<>();
+            List<Edge> line = new ArrayList<>();
             for (int j = 0; j < n; j++)
                 line.add(null);
             g.add(line);
@@ -34,7 +34,7 @@ public class DenseGraph<Weight> implements Graph<Weight> {
         return m;
     }
 
-    public void addEdge(int v, int w, Weight weight) {
+    public void addEdge(int v, int w, double weight) {
         assert (v >= 0 && v < n);
         assert (w >= 0 && w < n);
 
@@ -45,9 +45,9 @@ public class DenseGraph<Weight> implements Graph<Weight> {
                 g.get(w).set(v, null);
         }
 
-        g.get(v).set(w, new Edge<>(v, w, weight));
+        g.get(v).set(w, new Edge(v, w, weight));
         if (!directed)
-            g.get(w).set(v, new Edge<>(w, v, weight));
+            g.get(w).set(v, new Edge(w, v, weight));
 
         m++;
     }
@@ -59,11 +59,11 @@ public class DenseGraph<Weight> implements Graph<Weight> {
         return g.get(v).get(w) != null;
     }
 
-    public Iterable<Integer> adj(int v) {
-        List<Integer> iter = new ArrayList<>();
+    public Iterable<Edge> adj(int v) {
+        List<Edge> iter = new ArrayList<>();
         for (int index = 0; index < g.size(); index++)
             if (g.get(v).get(index) != null)
-                iter.add(index);
+                iter.add(g.get(v).get(index));
         return iter;
     }
 
@@ -73,7 +73,7 @@ public class DenseGraph<Weight> implements Graph<Weight> {
         stringBuilder.append("weight.DenseGraph\n");
         stringBuilder.append("-----------\n");
         for (int i = 0; i < g.size(); i++) {
-            List<Edge<Weight>> line = g.get(i);
+            List<Edge> line = g.get(i);
             stringBuilder.append(i);
             stringBuilder.append(" : ");
             for (int j = 0; j < line.size(); j++) {
@@ -90,11 +90,11 @@ public class DenseGraph<Weight> implements Graph<Weight> {
     }
 
     class adjIterator implements Iterator {
-        private DenseGraph<Weight> G;
+        private DenseGraph G;
         private int v;
         int index;
 
-        public adjIterator(DenseGraph<Weight> graph, int v) {
+        public adjIterator(DenseGraph graph, int v) {
             this.G = graph;
             this.v = v;
             this.index = -1;

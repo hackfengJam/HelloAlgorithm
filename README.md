@@ -52,6 +52,7 @@
     - [稀疏图 - 邻接表 - 无权有（无）向图](./GraphTheory/src/no_weight/SparseGraph.java)
     - [稠密图 - 邻接矩阵 - 带权有（无）向图](./GraphTheory/src/weight/DenseGraph.java)
     - [稀疏图 - 邻接表 - 带权有（无）向图](./GraphTheory/src/weight/SparseGraph.java)
+    - [最小生成树 - 通用_LazyPrimMST](./GraphTheory/src/weight/LazyPrimMST.java)
 
 
 #### 我的相关仓库
