@@ -22,6 +22,8 @@ public class LazyPrimMST {
      *
      * 切分定理（Cut Property）：
      *  给定任意切分，横切边中最小的边，必然属于最小生成树。
+     *
+     *  时间复杂度 O(ElogE)
      * */
     private Graph G;
     MinHeap<Edge> pq;

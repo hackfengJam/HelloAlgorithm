@@ -1,6 +1,6 @@
 package weight;
 
-public class IndexHeap<Key extends Comparable<Key>> {
+public class IndexMinHeap<Key extends Comparable<Key>> {
     // 最小索引堆
     private Key[] data;
     private int capacity;
@@ -15,7 +15,7 @@ public class IndexHeap<Key extends Comparable<Key>> {
         return count == 0;
     }
 
-    public IndexHeap(int capacity) {
+    public IndexMinHeap(int capacity) {
         data = (Key[]) new Comparable[capacity + 1];
         indexes = new int[capacity + 1];
         count = 0;
@@ -117,7 +117,7 @@ public class IndexHeap<Key extends Comparable<Key>> {
 
     public static void main(String[] args) {
         int[] nums = {3, 6, 2, 4, 5, 1};
-        IndexHeap<Integer> minHeap = new IndexHeap<>(nums.length);
+        IndexMinHeap<Integer> minHeap = new IndexMinHeap<>(nums.length);
         for (int i = 0; i < nums.length; i++) {
             minHeap.insert(i, nums[i]);
         }
