@@ -1,5 +1,7 @@
+package weight;
+
 public class IndexHeap<Key extends Comparable<Key>> {
-    // 最大索引堆
+    // 最小索引堆
     private Key[] data;
     private int capacity;
     int[] indexes;
@@ -20,8 +22,8 @@ public class IndexHeap<Key extends Comparable<Key>> {
         this.capacity = capacity;
     }
 
-    private boolean less(int i, int j) {
-        return data[i].compareTo(data[j]) < 0;
+    private boolean more(int i, int j) {
+        return data[i].compareTo(data[j]) > 0;
     }
 
     private void exch(int i, int j) {
@@ -37,7 +39,7 @@ public class IndexHeap<Key extends Comparable<Key>> {
     }
 
     public void swin(int k) {
-        while (k > 1 && less(indexes[k / 2], indexes[k])) {
+        while (k > 1 && more(indexes[k / 2], indexes[k])) {
 //            exch(k / 2, k);
             exchIndex(k / 2, k);
             k = k / 2;
@@ -47,8 +49,8 @@ public class IndexHeap<Key extends Comparable<Key>> {
     public void sink(int k) {
         while (k * 2 <= count) {
             int j = k * 2;
-            if (j < count && less(indexes[j], indexes[j + 1])) j++;
-            if (!less(indexes[k], indexes[j])) break;
+            if (j < count && more(indexes[j], indexes[j + 1])) j++;
+            if (!more(indexes[k], indexes[j])) break;
 //            exch(indexes[k], indexes[j]);
             exchIndex(k, j);
             k = j;
@@ -68,7 +70,7 @@ public class IndexHeap<Key extends Comparable<Key>> {
         swin(count);
     }
 
-    public Key delMax() {
+    public Key delMin() {
         assert (count > 0);
 
         Key key = data[indexes[1]];
@@ -79,7 +81,7 @@ public class IndexHeap<Key extends Comparable<Key>> {
         return key;
     }
 
-    public int delMaxIndex() {
+    public int delMinIndex() {
         assert (count > 0);
 
         int ret = indexes[1] - 1;
@@ -100,13 +102,13 @@ public class IndexHeap<Key extends Comparable<Key>> {
 
     public static void main(String[] args) {
         int[] nums = {3, 6, 2, 4, 5, 1};
-        IndexHeap<Integer> maxHeap = new IndexHeap<>(nums.length);
+        IndexHeap<Integer> minHeap = new IndexHeap<>(nums.length);
         for (int i = 0; i < nums.length; i++) {
-            maxHeap.insert(i, nums[i]);
+            minHeap.insert(i, nums[i]);
         }
         for (int i = 0; i < nums.length; i++) {
-            System.out.println(maxHeap.delMax());
-//            System.out.println(maxHeap.delMaxIndex());
+            System.out.println(minHeap.delMin());
+//            System.out.println(minHeap.delMinIndex());
         }
     }
 
