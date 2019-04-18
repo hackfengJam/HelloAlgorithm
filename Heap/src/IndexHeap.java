@@ -37,6 +37,7 @@ public class IndexHeap<Key extends Comparable<Key>> {
     }
 
     public void swin(int k) {
+        // 上浮
         while (k > 1 && less(indexes[k / 2], indexes[k])) {
 //            exch(k / 2, k);
             exchIndex(k / 2, k);
@@ -45,6 +46,7 @@ public class IndexHeap<Key extends Comparable<Key>> {
     }
 
     public void sink(int k) {
+        // 下沉
         while (k * 2 <= count) {
             int j = k * 2;
             if (j < count && less(indexes[j], indexes[j + 1])) j++;
@@ -92,6 +94,21 @@ public class IndexHeap<Key extends Comparable<Key>> {
 
     public Key getKey(int i) {
         return data[i + 1];
+    }
+
+    public void change(int i, Key newKey) {
+        i += 1;
+        data[i] = newKey;
+
+        // 找到 indexes[j] = i, j表示data[i]在堆中的位置
+        // 找到之后 swin(j)，再 sink(j)
+        for (int j = 1; j <= count; j++) {
+            if (indexes[j] == i) {
+                swin(j); // 上移
+                sink(j); // 下沉
+                return;
+            }
+        }
     }
 
     private void sort(Comparable a[]) {

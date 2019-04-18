@@ -81,6 +81,21 @@ public class IndexHeap<Key extends Comparable<Key>> {
         return key;
     }
 
+    public void change(int i, Key newKey) {
+        i += 1;
+        data[i] = newKey;
+
+        // 找到 indexes[j] = i, j表示data[i]在堆中的位置
+        // 找到之后 swin(j)，再 sink(j)
+        for (int j = 1; j <= count; j++) {
+            if (indexes[j] == i) {
+                swin(j); // 上移
+                sink(j); // 下沉
+                return;
+            }
+        }
+    }
+
     public int delMinIndex() {
         assert (count > 0);
 
