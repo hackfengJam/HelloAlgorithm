@@ -12,6 +12,8 @@
 - 【堆】
     - [最大堆](./Heap/src/MaxHeap.java)
     - [堆排序](./Heap/src/HeapSort.java)
+    - [最大（小）堆](./Heap/src/Heap.java)
+    - [索引堆 - 高级数据结构](./Heap/src/IndexHeap.java)
 - 【栈】
     - [栈](./Array/src/Array.java) - 基于[【数组】- 动态数组](./Array/src/Array.java)
 - 【队列】
