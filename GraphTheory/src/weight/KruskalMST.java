@@ -37,6 +37,11 @@ public class KruskalMST {
             uf.unionElements(e.v(), e.w());
         }
 
+        // 计算最小生成树总权值
+        for (Edge e : mst) {
+            mstWeight += e.wt();
+        }
+
     }
 
 
