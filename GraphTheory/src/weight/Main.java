@@ -1,5 +1,7 @@
 package weight;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Main {
@@ -103,12 +105,21 @@ public class Main {
         int M = 10;
         Random random = new Random();
 
-        // weight.SparseGraph
-        SparseGraph sparseGraph = new SparseGraph(N, false);
+
+        List<Edge> listEdge = new ArrayList<>();
         for (int i = 0; i < M; i++) {
             int a = random.nextInt(N);
             int b = random.nextInt(N);
             double weight = Math.random();
+            listEdge.add(new Edge(a, b, weight));
+        }
+
+        // weight.SparseGraph
+        SparseGraph sparseGraph = new SparseGraph(N, false);
+        for (Edge edge : listEdge) {
+            int a = edge.v();
+            int b = edge.w();
+            double weight = edge.wt();
             sparseGraph.addEdge(a, b, weight);
         }
         System.out.println(sparseGraph);
@@ -139,10 +150,10 @@ public class Main {
 
         // weight.DenseGraph
         DenseGraph denseGraph = new DenseGraph(N, false);
-        for (int i = 0; i < M; i++) {
-            int a = random.nextInt(N);
-            int b = random.nextInt(N);
-            double weight = Math.random();
+        for (Edge edge : listEdge) {
+            int a = edge.v();
+            int b = edge.w();
+            double weight = edge.wt();
             denseGraph.addEdge(a, b, weight);
         }
         System.out.println(denseGraph);
@@ -170,11 +181,173 @@ public class Main {
     }
 
 
+    public void primMst() {
+        int N = 10;
+        int M = 10;
+        Random random = new Random();
+
+        List<Edge> listEdge = new ArrayList<>();
+        for (int i = 0; i < M; i++) {
+            int a = random.nextInt(N);
+            int b = random.nextInt(N);
+            double weight = Math.random();
+            listEdge.add(new Edge(a, b, weight));
+        }
+
+
+        // weight.SparseGraph
+        SparseGraph sparseGraph = new SparseGraph(N, false);
+        for (Edge edge : listEdge) {
+            int a = edge.v();
+            int b = edge.w();
+            double weight = edge.wt();
+            sparseGraph.addEdge(a, b, weight);
+        }
+        System.out.println(sparseGraph);
+
+
+        // O(E)
+        // 打印所有边
+        for (int v = 0; v < N; v++) {
+            System.out.print(v + " : ");
+            Iterable<Edge> iterator = sparseGraph.adj(v);
+            for (Edge w : iterator) {
+                System.out.print(w + " ");
+            }
+            System.out.println();
+        }
+
+        // 打印最小生成树
+        PrimMST lazySparseGraphPrimMST = new PrimMST(sparseGraph);
+        Iterable<Edge> sparseGraphIterator = lazySparseGraphPrimMST.mstEdges();
+        for (Edge w : sparseGraphIterator) {
+            System.out.print(w + " ");
+        }
+        System.out.println();
+        System.out.println(lazySparseGraphPrimMST.reuslt());
+
+
+        System.out.println("----------分割线----------");
+
+        // weight.DenseGraph
+        DenseGraph denseGraph = new DenseGraph(N, false);
+        for (Edge edge : listEdge) {
+            int a = edge.v();
+            int b = edge.w();
+            double weight = edge.wt();
+            denseGraph.addEdge(a, b, weight);
+        }
+        System.out.println(denseGraph);
+
+        // O(V^2)
+        // 打印所有边
+        for (int v = 0; v < N; v++) {
+            System.out.print(v + " : ");
+            Iterable<Edge> iterator = denseGraph.adj(v);
+            for (Edge w : iterator) {
+                System.out.print(w + " ");
+            }
+            System.out.println();
+        }
+
+        // 打印最小生成树
+        PrimMST lazyDenseGraphPrimMST = new PrimMST(denseGraph);
+        Iterable<Edge> denseGraphIterator = lazyDenseGraphPrimMST.mstEdges();
+        for (Edge w : denseGraphIterator) {
+            System.out.print(w + " ");
+        }
+        System.out.println();
+        System.out.println(lazyDenseGraphPrimMST.reuslt());
+
+    }
+
+
+    public void kruskalMst() {
+        int N = 10;
+        int M = 10;
+        Random random = new Random();
+        List<Edge> listEdge = new ArrayList<>();
+        for (int i = 0; i < M; i++) {
+            int a = random.nextInt(N);
+            int b = random.nextInt(N);
+            double weight = Math.random();
+            listEdge.add(new Edge(a, b, weight));
+        }
+
+        // weight.SparseGraph
+        SparseGraph sparseGraph = new SparseGraph(N, false);
+        for (Edge edge : listEdge) {
+            int a = edge.v();
+            int b = edge.w();
+            double weight = edge.wt();
+            sparseGraph.addEdge(a, b, weight);
+        }
+        System.out.println(sparseGraph);
+
+
+        // O(E)
+        // 打印所有边
+        for (int v = 0; v < N; v++) {
+            System.out.print(v + " : ");
+            Iterable<Edge> iterator = sparseGraph.adj(v);
+            for (Edge w : iterator) {
+                System.out.print(w + " ");
+            }
+            System.out.println();
+        }
+
+        // 打印最小生成树
+        KruskalMST lazySparseGraphPrimMST = new KruskalMST(sparseGraph);
+        Iterable<Edge> sparseGraphIterator = lazySparseGraphPrimMST.mstEdges();
+        for (Edge w : sparseGraphIterator) {
+            System.out.print(w + " ");
+        }
+        System.out.println();
+        System.out.println(lazySparseGraphPrimMST.reuslt());
+
+
+        System.out.println("----------分割线----------");
+
+        // weight.DenseGraph
+        DenseGraph denseGraph = new DenseGraph(N, false);
+        for (Edge edge : listEdge) {
+            int a = edge.v();
+            int b = edge.w();
+            double weight = edge.wt();
+            denseGraph.addEdge(a, b, weight);
+        }
+        System.out.println(denseGraph);
+
+        // O(V^2)
+        // 打印所有边
+        for (int v = 0; v < N; v++) {
+            System.out.print(v + " : ");
+            Iterable<Edge> iterator = denseGraph.adj(v);
+            for (Edge w : iterator) {
+                System.out.print(w + " ");
+            }
+            System.out.println();
+        }
+
+        // 打印最小生成树
+        KruskalMST lazyDenseGraphPrimMST = new KruskalMST(denseGraph);
+        Iterable<Edge> denseGraphIterator = lazyDenseGraphPrimMST.mstEdges();
+        for (Edge w : denseGraphIterator) {
+            System.out.print(w + " ");
+        }
+        System.out.println();
+        System.out.println(lazyDenseGraphPrimMST.reuslt());
+
+    }
+
+
     public static void main(String[] args) {
         Main main = new Main();
 //        main.adjIteratorMain();
 //        main.iteratorMain();
         main.lazyPrimMst();
+//        main.primMst();
+//        main.kruskalMst();
 
     }
 }
