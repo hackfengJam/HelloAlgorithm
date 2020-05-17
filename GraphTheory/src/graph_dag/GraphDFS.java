@@ -39,7 +39,7 @@ public class GraphDFS {
 
     public static void main(String[] args) {
 
-        Graph g = new Graph("ug.txt", true);
+        Graph g = new Graph("./GraphTheory/src/graph_dag/ug.txt", true);
         GraphDFS graphDFS = new GraphDFS(g);
         System.out.println("DFS preOrder : " + graphDFS.pre());
         System.out.println("DFS postOrder : " + graphDFS.post());

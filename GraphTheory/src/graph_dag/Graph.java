@@ -190,7 +190,7 @@ public class Graph implements Cloneable {
 
     public static void main(String[] args) {
 
-        Graph ug = new Graph("ug.txt", true);
+        Graph ug = new Graph("./GraphTheory/src/graph_dag/ug.txt", true);
         System.out.print(ug);
 
         for (int v = 0; v < ug.V(); v++)
